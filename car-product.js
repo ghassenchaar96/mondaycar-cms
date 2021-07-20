@@ -1,3 +1,5 @@
+console.log("HAW CHANGEMENT AAA")
+
 let myUrl = new URL(document.location.href);
 let myParam = myUrl.searchParams.get("id");
 
