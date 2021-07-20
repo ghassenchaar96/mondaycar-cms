@@ -1,5 +1,3 @@
-console.log("HAW CHANGEMENT AAA")
-
 let myUrl = new URL(document.location.href);
 let myParam = myUrl.searchParams.get("id");
 
@@ -176,10 +174,9 @@ const getCar = () => {
                 amountInclVatMonthly
               )})`
             : `${allowedMileageMonthly}km/mois (inclus)`;
-          option.value = {
-            allowedMileageMonthly: price.allowedMileageMonthly,
-            amountInclVatMonthly: price.amountInclVatMonthly,
-          };
+          option.value = price.amountInclVatMonthly
+          option.id = price.allowedMileageMonthly
+
           selector.add(option);
         });
 
@@ -194,9 +191,8 @@ const getCar = () => {
       mileageRecapValue.textContent = "inclus";
 
       selector.addEventListener("change", (e) => {
-        console.log(e.target)
-        mileageRecapTitle.textContent = `Forfait ${e.target.value.allowedMileageMonthly}km/mois`;
-        mileageRecapValue.textContent = e.target.value.amountInclVatMonthly
+        mileageRecapTitle.textContent = `Forfait ${e.target.id}km/mois`;
+        mileageRecapValue.textContent = e.target.value
           ? `+ ${printPrice(e.target.value.amountInclVatMonthly)}/mois`
           : "ìnclus";
       });
