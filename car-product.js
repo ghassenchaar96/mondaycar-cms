@@ -174,8 +174,7 @@ const getCar = () => {
                 amountInclVatMonthly
               )})`
             : `${allowedMileageMonthly}km/mois (inclus)`;
-          option.value = price.amountInclVatMonthly
-          option.id = price.allowedMileageMonthly
+          option.value = `${price.amountInclVatMonthly},${price.allowedMileageMonthly}`
 
           selector.add(option);
         });
@@ -191,9 +190,10 @@ const getCar = () => {
       mileageRecapValue.textContent = "inclus";
 
       selector.addEventListener("change", (e) => {
-        mileageRecapTitle.textContent = `Forfait ${e.target.id}km/mois`;
-        mileageRecapValue.textContent = e.target.value
-          ? `+ ${printPrice(e.target.value.amountInclVatMonthly)}/mois`
+        const [amountInclVatMonthly, allowedMileageMonthly] = e.target.value.split(",")
+        mileageRecapTitle.textContent = `Forfait ${allowedMileageMonthly}km/mois`;
+        mileageRecapValue.textContent = amountInclVatMonthly
+          ? `+ ${printPrice(amountInclVatMonthly)}/mois`
           : "ìnclus";
       });
 
