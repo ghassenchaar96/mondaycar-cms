@@ -246,8 +246,8 @@ const getCar = () => {
         }
 
         radio.addEventListener("change", function (e) {
+          const insuranceCollapse = document.getElementById("insurance-collapse");
           if (e.target.value !== "mondaycar") {
-           const insuranceCollapse = document.getElementById("insurance-collapse");
            insuranceCollapse.style.display = "none"
           } else {
            insuranceCollapse.style.display = "block"
