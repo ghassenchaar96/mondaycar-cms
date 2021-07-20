@@ -245,7 +245,14 @@ const getCar = () => {
           label.style.border = "1px solid #32e0c4";
         }
 
-        radio.addEventListener("change", function () {
+        radio.addEventListener("change", function (e) {
+          if (e.target.value !== "mondaycar") {
+           const insuranceCollapse = document.getElementById("insurance-collapse");
+           insuranceCollapse.style.display = "none"
+          }
+          
+          
+          
           label.style.color = "#32e0c4";
           label.style.border = "1px solid #32e0c4";
 
