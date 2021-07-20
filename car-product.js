@@ -192,6 +192,7 @@ const getCar = () => {
       mileageRecapValue.textContent = "inclus";
 
       selector.addEventListener("change", (e) => {
+        console.log(e.target)
         mileageRecapTitle.textContent = `Forfait ${e.target.value.allowedMileageMonthly}km/mois`;
         mileageRecapValue.textContent = e.target.value.amountInclVatMonthly
           ? `+ ${printPrice(e.target.value.amountInclVatMonthly)}/mois`
