@@ -249,6 +249,8 @@ const getCar = () => {
           if (e.target.value !== "mondaycar") {
            const insuranceCollapse = document.getElementById("insurance-collapse");
            insuranceCollapse.style.display = "none"
+          } else {
+           insuranceCollapse.style.display = "block"
           }
           
           
