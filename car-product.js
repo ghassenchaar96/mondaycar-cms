@@ -2,7 +2,7 @@ let myUrl = new URL(document.location.href);
 let myParam = myUrl.searchParams.get("id");
 
 let request = new XMLHttpRequest();
-const mondaycarUrl = new URL(`https://api.mondaycar.com/catalog/${myParam}`);
+const mondaycarUrl = new URL(`https://api-staging.mondaycar.com/catalog/${myParam}`);
 
 const getCar = () => {
   let request = new XMLHttpRequest();
