@@ -344,17 +344,20 @@ const getCar = () => {
 
         const userSelection = {
           car_id: "6f2290ec-4bc8-4cc1-a949-d53509e7113a",
-          car_name: `AUDI Q5`,
-          car_finition: "black",
-          car_engine: "75ch",
-          commitment_duration: 0,
-          commitment_price: "400€",
-          commitment_uuid: "cbb226ea-ab55-4773-b8b5-404c38b02697",
+          car_name: "audi q5",
+          car_finition: "unknown",
+          car_engine: "tdi 163ch",
+          commitment_duration: 24,
+          commitment_price: "330€",
+          commitment_uuid: "cf0389ee-040f-497b-9844-9fabc31297a3",
           mileage_distance: 1000,
           mileage_price: "0€",
-          insurance: "mondaycar",
-          total_selection: "400€",
+          insurance: "mondarycar",
+          total_selection: "330€",
+          utm: ""
         };
+        
+
 
         webAuth.authorize({
           responseType: "code",
@@ -371,3 +374,5 @@ const getCar = () => {
 (function () {
   getCar();
 })();
+
+
