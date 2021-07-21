@@ -111,15 +111,27 @@ const getCar = () => {
           leasePrices.cheapest.amountInclVatMonthly
         )}/mois`;
 
-
         const configTotalPrice = document.getElementById("config-total-price");
 
-        const configTotalCommitment = document.getElementById("config-total-commitment");
+        const configTotalCommitment = document.getElementById(
+          "config-total-commitment"
+        );
+
+        const configTotalSaving = document.getElementById(
+          "config-total-saving"
+        );
+
         configTotalPrice.textContent = `${printPrice(
-            leasePrices.cheapest.amountInclVatMonthly
-          )}/mois`;
-          configTotalCommitment.textContent =  leasePrices.cheapest.commitmentDurationInMonths 
-        
+          leasePrices.cheapest.amountInclVatMonthly
+        )}/mois`;
+        configTotalCommitment.textContent =
+          leasePrices.cheapest.commitmentDurationInMonths;
+
+        configTotalCommitment.textContent = `d'économiser ${printPrice(
+          leasePrices.expensive.amountInclVatMonthly -
+            leasePrices.cheapest.amountInclVatMonthly *
+              leasePrices.cheapest.commitmentDurationInMonths
+        )}`;
 
         radio.addEventListener("change", function () {
           commitmentRecapTitle.textContent = price.commitmentDurationInMonths
@@ -132,7 +144,13 @@ const getCar = () => {
           configTotalPrice.textContent = `${printPrice(
             price.amountInclVatMonthly
           )}/mois`;
-          configTotalCommitment.textContent =  price.commitmentDurationInMonths
+
+          configTotalCommitment.textContent = price.commitmentDurationInMonths;
+
+          configTotalCommitment.textContent = `d'économiser ${printPrice(
+            leasePrices.expensive.amountInclVatMonthly -
+              price.amountInclVatMonthly * price.commitmentDurationInMonths
+          )}`;
 
           commitmentRecap.appendChild(commitmentRecapTitle);
           commitmentRecap.appendChild(commitmentRecapValue);
