@@ -2,7 +2,9 @@ let myUrl = new URL(document.location.href);
 let myParam = myUrl.searchParams.get("id");
 
 let request = new XMLHttpRequest();
-const mondaycarUrl = new URL(`https://api-staging.mondaycar.com/catalog/${myParam}`);
+const mondaycarUrl = new URL(
+  `https://api-staging.mondaycar.com/catalog/${myParam}`
+);
 
 const getCar = () => {
   let request = new XMLHttpRequest();
@@ -120,7 +122,7 @@ const getCar = () => {
         const configTotalSaving = document.getElementById(
           "config-total-saving"
         );
-        
+
         const configDeposit = document.getElementById(
           "config-disclaimer-deposit"
         );
@@ -134,9 +136,9 @@ const getCar = () => {
         configTotalSaving.textContent = `d'économiser ${printPrice(
           (leasePrices.expensive.amountInclVatMonthly -
             leasePrices.cheapest.amountInclVatMonthly) *
-              leasePrices.cheapest.commitmentDurationInMonths
+            leasePrices.cheapest.commitmentDurationInMonths
         )}`;
-        
+
         configDeposit.textContent = printPrice(
           leasePrices.expensive.amountInclVatMonthly
         );
@@ -157,7 +159,8 @@ const getCar = () => {
 
           configTotalSaving.textContent = `d'économiser ${printPrice(
             (leasePrices.expensive.amountInclVatMonthly -
-              price.amountInclVatMonthly) * price.commitmentDurationInMonths
+              price.amountInclVatMonthly) *
+              price.commitmentDurationInMonths
           )}`;
 
           commitmentRecap.appendChild(commitmentRecapTitle);
@@ -325,6 +328,39 @@ const getCar = () => {
         //TODO : SET THE CHOSEN ONE IN SESSION STORAGE
 
         // LEASE PRICE SELECTOR END
+      });
+
+      const signupButton = document.getElementById("signup-button");
+
+      signupButton.addEventListener("click", (e) => {
+        console.log("button clicked");
+        const webAuth = new auth0.WebAuth({
+          domain: "mondaycar.eu.auth0.com",
+          clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
+          redirectUri: "https://mondaycar.webflow.io/faq",
+        });
+
+        console.log("webauth", webAuth);
+
+        const userSelection = {
+          car_id: "6f2290ec-4bc8-4cc1-a949-d53509e7113a",
+          car_name: `AUDI Q5`,
+          car_finition: "black",
+          car_engine: "75ch",
+          commitment_duration: 0,
+          commitment_price: "400€",
+          commitment_uuid: "cbb226ea-ab55-4773-b8b5-404c38b02697",
+          mileage_distance: 1000,
+          mileage_price: "0€",
+          insurance: "mondaycar",
+          total_selection: "400€",
+        };
+
+        webAuth.authorize({
+          responseType: "code",
+          leadData: userSelection,
+          state: "6f2290ec-4bc8-4cc1-a949-d53509e7113a",
+        });
       });
     }
   };
