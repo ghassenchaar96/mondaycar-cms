@@ -127,7 +127,7 @@ const getCar = () => {
         configTotalCommitment.textContent =
           leasePrices.cheapest.commitmentDurationInMonths;
 
-        configTotalCommitment.textContent = `d'économiser ${printPrice(
+        configTotalSaving.textContent = `d'économiser ${printPrice(
           leasePrices.expensive.amountInclVatMonthly -
             leasePrices.cheapest.amountInclVatMonthly *
               leasePrices.cheapest.commitmentDurationInMonths
@@ -147,7 +147,7 @@ const getCar = () => {
 
           configTotalCommitment.textContent = price.commitmentDurationInMonths;
 
-          configTotalCommitment.textContent = `d'économiser ${printPrice(
+          configTotalSaving.textContent = `d'économiser ${printPrice(
             leasePrices.expensive.amountInclVatMonthly -
               price.amountInclVatMonthly * price.commitmentDurationInMonths
           )}`;
