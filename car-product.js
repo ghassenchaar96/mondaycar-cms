@@ -111,6 +111,16 @@ const getCar = () => {
           leasePrices.cheapest.amountInclVatMonthly
         )}/mois`;
 
+
+        const configTotalPrice = document.getElementById("config-total-price");
+
+        const configTotalCommitment = document.getElementById("config-total-commitment");
+        configTotalPrice.textContent = `${printPrice(
+            leasePrices.cheapest.amountInclVatMonthly
+          )}/mois`;
+          configTotalCommitment.textContent =  leasePrices.cheapest.commitmentDurationInMonths 
+        
+
         radio.addEventListener("change", function () {
           commitmentRecapTitle.textContent = price.commitmentDurationInMonths
             ? `Engagement ${price.commitmentDurationInMonths} mois`
@@ -118,6 +128,11 @@ const getCar = () => {
           commitmentRecapValue.textContent = `${printPrice(
             price.amountInclVatMonthly
           )}/mois`;
+
+          configTotalPrice.textContent = `${printPrice(
+            price.amountInclVatMonthly
+          )}/mois`;
+          configTotalCommitment.textContent =  price.commitmentDurationInMonths
 
           commitmentRecap.appendChild(commitmentRecapTitle);
           commitmentRecap.appendChild(commitmentRecapValue);
@@ -174,7 +189,7 @@ const getCar = () => {
                 amountInclVatMonthly
               )})`
             : `${allowedMileageMonthly}km/mois (inclus)`;
-          option.value = `${price.amountInclVatMonthly},${price.allowedMileageMonthly}`
+          option.value = `${price.amountInclVatMonthly},${price.allowedMileageMonthly}`;
 
           selector.add(option);
         });
@@ -190,7 +205,8 @@ const getCar = () => {
       mileageRecapValue.textContent = "inclus";
 
       selector.addEventListener("change", (e) => {
-        const [amountInclVatMonthly, allowedMileageMonthly] = e.target.value.split(",")
+        const [amountInclVatMonthly, allowedMileageMonthly] =
+          e.target.value.split(",");
         mileageRecapTitle.textContent = `Forfait ${allowedMileageMonthly}km/mois`;
         mileageRecapValue.textContent = amountInclVatMonthly
           ? `+ ${printPrice(amountInclVatMonthly)}/mois`
@@ -246,15 +262,14 @@ const getCar = () => {
         }
 
         radio.addEventListener("change", function (e) {
-          const insuranceCollapse = document.getElementById("insurance-collapse");
+          const insuranceCollapse =
+            document.getElementById("insurance-collapse");
           if (e.target.value !== "mondaycar") {
-           insuranceCollapse.style.display = "none"
+            insuranceCollapse.style.display = "none";
           } else {
-           insuranceCollapse.style.display = "block"
+            insuranceCollapse.style.display = "block";
           }
-          
-          
-          
+
           label.style.color = "#32e0c4";
           label.style.border = "1px solid #32e0c4";
 
@@ -294,5 +309,3 @@ const getCar = () => {
 (function () {
   getCar();
 })();
-
-    
