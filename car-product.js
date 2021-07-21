@@ -120,6 +120,10 @@ const getCar = () => {
         const configTotalSaving = document.getElementById(
           "config-total-saving"
         );
+        
+        const configDeposit = document.getElementById(
+          "config-disclaimer-deposit"
+        );
 
         configTotalPrice.textContent = `${printPrice(
           leasePrices.cheapest.amountInclVatMonthly
@@ -132,6 +136,10 @@ const getCar = () => {
             leasePrices.cheapest.amountInclVatMonthly) *
               leasePrices.cheapest.commitmentDurationInMonths
         )}`;
+        
+        configDeposit.textContent = printPrice(
+          leasePrices.expensive.amountInclVatMonthly
+        );
 
         radio.addEventListener("change", function () {
           commitmentRecapTitle.textContent = price.commitmentDurationInMonths
