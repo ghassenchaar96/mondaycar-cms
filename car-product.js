@@ -337,7 +337,7 @@ const getCar = () => {
         const webAuth = new auth0.WebAuth({
           domain: "mondaycar.eu.auth0.com",
           clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
-          redirectUri: `https://mondaycar.webflow.io/voiture/confirmation?id=${car.listingUUID}`,
+          redirectUri: `https://mondaycar.webflow.io/confirmation?id=${car.listingUUID}`,
         });
 
         console.log("webauth", webAuth);
