@@ -69,6 +69,12 @@ const getCar = () => {
       const leasePricesForm = document.getElementById("lease-prices-form-bis");
       let selectedUUID = leasePrices.cheapest.uuid;
 
+      let commitment_duration = leasePrices.cheapest.commitmentDurationInMonths;
+      let commitment_price = printPrice(
+        leasePrices.cheapest.amountInclVatMonthly
+      );
+      let commitment_uuid = leasePrices.cheapest.uuid;
+
       car.leasePrices.map((price) => {
         const leaseRadioShape = document.createElement("div");
         leaseRadioShape.setAttribute("class", "lease-radio-shape");
@@ -144,6 +150,10 @@ const getCar = () => {
         );
 
         radio.addEventListener("change", function () {
+          commitment_duration = price.commitmentDurationInMonths;
+          commitment_price = printPrice(price.amountInclVatMonthly);
+          commitment_uuid = price.uuid;
+
           commitmentRecapTitle.textContent = price.commitmentDurationInMonths
             ? `Engagement ${price.commitmentDurationInMonths} mois`
             : `Sans engagement`;
@@ -203,6 +213,8 @@ const getCar = () => {
 
       const selector = document.getElementById("mileage-select");
 
+      let mileage_distance = 1000;
+      let mileage_price = "0€";
       // Create an option for each mileage price
       console.log(car.mileagePrices);
       car.mileagePrices
@@ -240,6 +252,9 @@ const getCar = () => {
         mileageRecapValue.textContent = amountInclVatMonthly
           ? `+ ${printPrice(amountInclVatMonthly)}/mois`
           : "ìnclus";
+
+        mileage_distance = allowedMileageMonthly;
+        mileage_price = printPrice(amountInclVatMonthly);
       });
 
       //TODO : SET THE CHOSEN ONE IN SESSION STORAGE
@@ -263,6 +278,7 @@ const getCar = () => {
       ];
 
       let selectedInsuranceUUID = insuranceOptions[0].uuid;
+      let insurance = selectedInsuranceUUID;
 
       insuranceOptions.map((option) => {
         const insuranceRadioShape = document.createElement("div");
@@ -291,6 +307,7 @@ const getCar = () => {
         }
 
         radio.addEventListener("change", function (e) {
+          insurance = e.target.value;
           const insuranceCollapse =
             document.getElementById("insurance-collapse");
           if (e.target.value !== "mondaycar") {
@@ -337,32 +354,29 @@ const getCar = () => {
         const webAuth = new auth0.WebAuth({
           domain: "mondaycar.eu.auth0.com",
           clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
-          redirectUri: `https://mondaycar.webflow.io/confirmation?id=${car.listingUUID}`,
+          redirectUri: `https://mondaycar.webflow.io/confirmation`,
         });
 
         console.log("webauth", webAuth);
 
         const userSelection = {
-          car_id: "6f2290ec-4bc8-4cc1-a949-d53509e7113a",
-          car_name: "audi q5",
-          car_finition: "unknown",
-          car_engine: "tdi 163ch",
-          commitment_duration: 24,
-          commitment_price: "330€",
-          commitment_uuid: "cf0389ee-040f-497b-9844-9fabc31297a3",
-          mileage_distance: 1000,
-          mileage_price: "0€",
-          insurance: "mondarycar",
-          total_selection: "330€",
-          utm: ""
+          car_id: car.listingUUID,
+          car_name: `${car.manufacturer} ${car.model}`,
+          car_finition: car.edition,
+          car_engine: car.engine,
+          commitment_duration,
+          commitment_price,
+          commitment_uuid,
+          mileage_distance,
+          mileage_price,
+          insurance,
+          utm: "",
         };
-        
-
 
         webAuth.authorize({
           responseType: "code",
           leadData: userSelection,
-          state: "6f2290ec-4bc8-4cc1-a949-d53509e7113a",
+          state: car.listingUUID,
         });
       });
     }
@@ -374,5 +388,3 @@ const getCar = () => {
 (function () {
   getCar();
 })();
-
-
