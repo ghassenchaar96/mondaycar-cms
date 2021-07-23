@@ -2,6 +2,9 @@ let myUrl = new URL(document.location.href);
 let myParam = myUrl.searchParams.get("id");
 
 let request = new XMLHttpRequest();
+
+// TODO: Change mondaycarUrl depending on which domain we're on : staging or production
+
 const mondaycarUrl = new URL(
   `https://api-staging.mondaycar.com/catalog/${myParam}`
 );
@@ -74,6 +77,8 @@ const getCar = () => {
         leasePrices.cheapest.amountInclVatMonthly
       );
       let commitment_uuid = leasePrices.cheapest.uuid;
+
+      let selectedLease = leasePrices.cheapest;
 
       car.leasePrices.map((price) => {
         const leaseRadioShape = document.createElement("div");
@@ -153,6 +158,7 @@ const getCar = () => {
           commitment_duration = price.commitmentDurationInMonths;
           commitment_price = printPrice(price.amountInclVatMonthly);
           commitment_uuid = price.uuid;
+          selectedLease = price;
 
           commitmentRecapTitle.textContent = price.commitmentDurationInMonths
             ? `Engagement ${price.commitmentDurationInMonths} mois`
@@ -215,6 +221,9 @@ const getCar = () => {
 
       let mileage_distance = 1000;
       let mileage_price = "0€";
+      let selectedMileage = car.mileagePrices.find(
+        (price) => price.allowedMileageMonthly === 1000
+      );
       // Create an option for each mileage price
       console.log(car.mileagePrices);
       car.mileagePrices
@@ -255,6 +264,10 @@ const getCar = () => {
 
         mileage_distance = allowedMileageMonthly;
         mileage_price = printPrice(amountInclVatMonthly);
+        selectedMileage = {
+          allowedMileageMonthly,
+          amountInclVatMonthly,
+        };
       });
 
       //TODO : SET THE CHOSEN ONE IN SESSION STORAGE
@@ -279,6 +292,7 @@ const getCar = () => {
 
       let selectedInsuranceUUID = insuranceOptions[0].uuid;
       let insurance = selectedInsuranceUUID;
+      let selectedInsurance = insuranceOptions[0];
 
       insuranceOptions.map((option) => {
         const insuranceRadioShape = document.createElement("div");
@@ -307,6 +321,7 @@ const getCar = () => {
         }
 
         radio.addEventListener("change", function (e) {
+          selectedInsurance = e.target.value;
           insurance = e.target.value;
           const insuranceCollapse =
             document.getElementById("insurance-collapse");
@@ -349,35 +364,57 @@ const getCar = () => {
 
       const signupButton = document.getElementById("signup-button");
 
+      // Use this chunck of code in order to signup the user when he clicks on "Ce vehicule m'intéresse"
+
+      //   signupButton.addEventListener("click", (e) => {
+      //     console.log("button clicked");
+      //     const webAuth = new auth0.WebAuth({
+      //       domain: "mondaycar.eu.auth0.com",
+      //       clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
+      //       redirectUri: `https://mondaycar.webflow.io/confirmation`,
+      //     });
+
+      //     console.log("webauth", webAuth);
+
+      //     const userSelection = {
+      //       car_id: car.listingUUID,
+      //       car_name: `${car.manufacturer} ${car.model}`,
+      //       car_finition: car.edition,
+      //       car_engine: car.engine,
+      //       commitment_duration,
+      //       commitment_price,
+      //       commitment_uuid,
+      //       mileage_distance,
+      //       mileage_price,
+      //       insurance,
+      //       utm: "",
+      //     };
+
+      //     webAuth.authorize({
+      //       responseType: "code",
+      //       leadData: userSelection,
+      //       state: car.listingUUID,
+      //     });
+      //   });
+
+      // Use this chunck of code in order to collect the lead via zapier workflow
       signupButton.addEventListener("click", (e) => {
         console.log("button clicked");
-        const webAuth = new auth0.WebAuth({
-          domain: "mondaycar.eu.auth0.com",
-          clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
-          redirectUri: `https://mondaycar.webflow.io/confirmation`,
-        });
 
-        console.log("webauth", webAuth);
+        sessionStorage.setItem(
+          "selection",
+          JSON.stringify({
+            selectedLease,
+            selectedMileage,
+            selectedInsurance,
+            total: printPrice(
+              selectedLease.amountInclVatMonthly +
+                selectedMileage.amountInclVatMonthly
+            ),
+          })
+        );
 
-        const userSelection = {
-          car_id: car.listingUUID,
-          car_name: `${car.manufacturer} ${car.model}`,
-          car_finition: car.edition,
-          car_engine: car.engine,
-          commitment_duration,
-          commitment_price,
-          commitment_uuid,
-          mileage_distance,
-          mileage_price,
-          insurance,
-          utm: "",
-        };
-
-        webAuth.authorize({
-          responseType: "code",
-          leadData: userSelection,
-          state: car.listingUUID,
-        });
+        document.location.href = `reservation?id=${car.listingUUID}`;
       });
     }
   };
