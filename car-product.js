@@ -292,7 +292,7 @@ const getCar = () => {
 
       let selectedInsuranceUUID = insuranceOptions[0].uuid;
       let insurance = selectedInsuranceUUID;
-      let selectedInsurance = insuranceOptions[0];
+      let selectedInsurance = insuranceOptions[0].uuid;
 
       insuranceOptions.map((option) => {
         const insuranceRadioShape = document.createElement("div");
