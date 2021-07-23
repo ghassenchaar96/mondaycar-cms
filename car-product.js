@@ -265,8 +265,8 @@ const getCar = () => {
         mileage_distance = allowedMileageMonthly;
         mileage_price = printPrice(amountInclVatMonthly);
         selectedMileage = {
-          allowedMileageMonthly,
-          amountInclVatMonthly,
+          allowedMileageMonthly: parseInt(allowedMileageMonthly),
+          amountInclVatMonthly: parseInt(amountInclVatMonthly),
         };
       });
 
