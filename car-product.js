@@ -15,11 +15,11 @@ const getCar = () => {
   request.open("GET", mondaycarUrl, true);
 
   request.onload = function () {
-    let res = JSON.parse(this.response);
-    let car = res?.data;
-    let leasePrices = leasePlan(car.leasePrices);
-
     if (request.status >= 200 && request.status < 400) {
+      let res = JSON.parse(this.response);
+      let car = res?.data;
+      let leasePrices = leasePlan(car.leasePrices);
+
       const carGrid = document.getElementById("car-grid");
 
       const carTitle = document.getElementById("car-title");
@@ -416,6 +416,8 @@ const getCar = () => {
 
         document.location.href = `reservation?id=${car.listingUUID}`;
       });
+    } else {
+      document.location.href = "voitures";
     }
   };
 
