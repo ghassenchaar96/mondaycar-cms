@@ -366,56 +366,56 @@ const getCar = () => {
 
       // Use this chunck of code in order to signup the user when he clicks on "Ce vehicule m'intéresse"
 
-      //   signupButton.addEventListener("click", (e) => {
-      //     console.log("button clicked");
-      //     const webAuth = new auth0.WebAuth({
-      //       domain: "mondaycar.eu.auth0.com",
-      //       clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
-      //       redirectUri: `https://mondaycar.webflow.io/confirmation`,
-      //     });
-
-      //     console.log("webauth", webAuth);
-
-      //     const userSelection = {
-      //       car_id: car.listingUUID,
-      //       car_name: `${car.manufacturer} ${car.model}`,
-      //       car_finition: car.edition,
-      //       car_engine: car.engine,
-      //       commitment_duration,
-      //       commitment_price,
-      //       commitment_uuid,
-      //       mileage_distance,
-      //       mileage_price,
-      //       insurance,
-      //       utm: "",
-      //     };
-
-      //     webAuth.authorize({
-      //       responseType: "code",
-      //       leadData: userSelection,
-      //       state: car.listingUUID,
-      //     });
-      //   });
-
-      // Use this chunck of code in order to collect the lead via zapier workflow
       signupButton.addEventListener("click", (e) => {
         console.log("button clicked");
+        const webAuth = new auth0.WebAuth({
+          domain: "mondaycar.eu.auth0.com",
+          clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
+          redirectUri: `https://mondaycar.webflow.io/confirmation`,
+        });
 
-        sessionStorage.setItem(
-          "selection",
-          JSON.stringify({
-            selectedLease,
-            selectedMileage,
-            selectedInsurance,
-            total: printPrice(
-              selectedLease.amountInclVatMonthly +
-                selectedMileage.amountInclVatMonthly
-            ),
-          })
-        );
+        console.log("webauth", webAuth);
 
-        document.location.href = `reservation?id=${car.listingUUID}`;
+        const userSelection = {
+          car_id: car.listingUUID,
+          car_name: `${car.manufacturer} ${car.model}`,
+          car_finition: car.edition,
+          car_engine: car.engine,
+          commitment_duration,
+          commitment_price,
+          commitment_uuid,
+          mileage_distance,
+          mileage_price,
+          insurance,
+          utm: "",
+        };
+
+        webAuth.authorize({
+          responseType: "code",
+          leadData: userSelection,
+          state: car.listingUUID,
+        });
       });
+
+      // Use this chunck of code in order to collect the lead via zapier workflow
+      // signupButton.addEventListener("click", (e) => {
+      //   console.log("button clicked");
+
+      //   sessionStorage.setItem(
+      //     "selection",
+      //     JSON.stringify({
+      //       selectedLease,
+      //       selectedMileage,
+      //       selectedInsurance,
+      //       total: printPrice(
+      //         selectedLease.amountInclVatMonthly +
+      //           selectedMileage.amountInclVatMonthly
+      //       ),
+      //     })
+      //   );
+
+      //   document.location.href = `reservation?id=${car.listingUUID}`;
+      // });
     } else {
       document.location.href = "voitures";
     }
