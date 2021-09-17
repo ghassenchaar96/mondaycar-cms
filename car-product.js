@@ -372,11 +372,20 @@ const getCar = () => {
 
       signupButton.addEventListener("click", (e) => {
         console.log("button clicked");
-        const webAuth = new auth0.WebAuth({
-          domain: "mondaycar.eu.auth0.com",
-          clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
-          redirectUri: `https://mondaycar.webflow.io/confirmation`,
-        });
+        let webAuth;
+        if (document.location.href.includes("webflow.io")) {
+          webAuth = new auth0.WebAuth({
+            domain: "mondaycar.eu.auth0.com",
+            clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
+            redirectUri: `https://mondaycar.webflow.io/confirmation`,
+          });
+        } else {
+          webAuth = new auth0.WebAuth({
+            domain: "mondaycar-production.eu.auth0.com",
+            clientID: "ctnZpedOtXcbWqecL6fEQfAdcdxemhEK",
+            redirectUri: `https://mondaycar.com/confirmation`,
+          });
+        }
 
         console.log("webauth", webAuth);
 
@@ -431,3 +440,28 @@ const getCar = () => {
 (function () {
   getCar();
 })();
+
+// HELPERS
+const printPrice = (amountX100 = 0, currentSymbol = "€", precision = 0) => {
+  return `${(amountX100 / 100).toFixed(precision)}${currentSymbol}`;
+};
+
+const mainImage = (car) => {
+  const byPriorityLowToHigh = car.images.sort(
+    (a, b) => a.priority - b.priority
+  );
+  return byPriorityLowToHigh[0];
+};
+
+const leasePlan = (leasePrices) => {
+  const byExpensivePrice = leasePrices.sort(
+    (a, b) =>
+      b.amountInclVatMonthly - a.amountInclVatMonthly ||
+      b.commitmentDurationInMonths - a.commitmentDurationInMonths
+  );
+  return {
+    cheapest: byExpensivePrice[byExpensivePrice.length - 1],
+    expensive: byExpensivePrice[0],
+  };
+};
+//
