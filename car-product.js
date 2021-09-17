@@ -442,10 +442,11 @@ const getCar = () => {
 })();
 
 // HELPERS
+/*
 const printPrice = (amountX100 = 0, currentSymbol = "€", precision = 0) => {
   return `${(amountX100 / 100).toFixed(precision)}${currentSymbol}`;
 };
-
+*/
 const mainImage = (car) => {
   const byPriorityLowToHigh = car.images.sort(
     (a, b) => a.priority - b.priority
