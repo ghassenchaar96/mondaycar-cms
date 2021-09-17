@@ -5,9 +5,13 @@ let request = new XMLHttpRequest();
 
 // TODO: Change mondaycarUrl depending on which domain we're on : staging or production
 
-const mondaycarUrl = new URL(
-  `https://api-staging.mondaycar.com/catalog/${myParam}`
-);
+let mondaycarUrl = new URL(`https://api.mondaycar.com/catalog/${myParam}`);
+
+if (document.location.href.includes("webflow.io")) {
+  mondaycarUrl = new URL(
+    `https://api-staging.mondaycar.com/catalog/${myParam}`
+  );
+}
 
 const getCar = () => {
   let request = new XMLHttpRequest();
