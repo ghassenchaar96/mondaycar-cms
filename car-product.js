@@ -379,7 +379,7 @@ const getCar = () => {
             clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
             redirectUri: `https://mondaycar.webflow.io/confirmation`,
           });
-       */ } else {
+        } else { */
           webAuth = new auth0.WebAuth({
             domain: "mondaycar-production.eu.auth0.com",
             clientID: "ctnZpedOtXcbWqecL6fEQfAdcdxemhEK",
