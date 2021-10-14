@@ -385,7 +385,7 @@ const getCar = () => {
             domain: "mondaycar-production.eu.auth0.com",
             clientID: "ctnZpedOtXcbWqecL6fEQfAdcdxemhEK",
             redirectUri: `https://mondaycar.com/confirmation`,
-          }); :
+          }); 
        // } 
 
         console.log("webauth", webAuth);
