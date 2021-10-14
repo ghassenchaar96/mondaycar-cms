@@ -373,20 +373,20 @@ const getCar = () => {
       signupButton.addEventListener("click", (e) => {
         console.log("button clicked");
         let webAuth;
-        if (document.location.href.includes("webflow.io")) {
+        /* if (document.location.href.includes("webflow.io")) {
           webAuth = new auth0.WebAuth({
             domain: "mondaycar.eu.auth0.com",
             clientID: "5q9jO4QxVTbKSjIgRHa6P2ckbL9Ynfv9",
             redirectUri: `https://mondaycar.webflow.io/confirmation`,
           });
         } 
-        /* else { 
+         else { */
           webAuth = new auth0.WebAuth({
             domain: "mondaycar-production.eu.auth0.com",
             clientID: "ctnZpedOtXcbWqecL6fEQfAdcdxemhEK",
             redirectUri: `https://mondaycar.com/confirmation`,
           }); :
-        } */
+       // } 
 
         console.log("webauth", webAuth);
 
