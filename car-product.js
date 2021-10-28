@@ -7,11 +7,14 @@ let request = new XMLHttpRequest();
 
 let mondaycarUrl = new URL(`https://api.mondaycar.com/catalog/${myParam}`);
 
+/*
+
 if (document.location.href.includes("webflow.io")) {
   mondaycarUrl = new URL(
     `https://api-staging.mondaycar.com/catalog/${myParam}`
   );
 }
+*/
 
 const getCar = () => {
   let request = new XMLHttpRequest();
