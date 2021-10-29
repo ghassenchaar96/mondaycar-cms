@@ -145,6 +145,7 @@ const getCar = () => {
         const configDeposit = document.getElementById(
           "config-disclaimer-deposit"
         );
+        const configFees = document.getElementById("config-fees");
 
         configTotalPrice.textContent = `${printPrice(
           leasePrices.cheapest.amountInclVatMonthly
@@ -159,7 +160,13 @@ const getCar = () => {
         )}`;
 
         configDeposit.textContent = printPrice(
-          leasePrices.expensive.amountInclVatMonthly
+          car.deposit ? car.deposit : leasePrices.expensive.amountInclVatMonthly
+        );
+
+        configFees.textContent = printPrice(
+          car.feePrice && car.feePrice.length
+            ? car.feePrice[0].amountInclVat
+            : leasePrices.expensive.amountInclVatMonthly
         );
 
         radio.addEventListener("change", function () {
