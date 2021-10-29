@@ -422,18 +422,18 @@ const getCar = () => {
       signupButton.addEventListener("click", (e) => {
         console.log("button clicked");
 
-        /* sessionStorage.setItem(
-        "selection",
-        JSON.stringify({
-          selectedLease,
-          selectedMileage,
-          selectedInsurance,
-          total: printPrice(
-            selectedLease.amountInclVatMonthly +
-              selectedMileage.amountInclVatMonthly
-          ),
-        })
-      );*/
+        sessionStorage.setItem(
+          "selection",
+          JSON.stringify({
+            selectedLease,
+            selectedMileage,
+            selectedInsurance,
+            total: printPrice(
+              selectedLease.amountInclVatMonthly +
+                selectedMileage.amountInclVatMonthly
+            ),
+          })
+        );
 
         document.location.href = `reservation?id=${car.listingUUID}`;
       });
