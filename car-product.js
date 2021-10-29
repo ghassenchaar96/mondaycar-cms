@@ -421,7 +421,7 @@ const getCar = () => {
         signupButton.addEventListener("click", (e) => {
           console.log("button clicked");
 
-          sessionStorage.setItem(
+          /* sessionStorage.setItem(
             "selection",
             JSON.stringify({
               selectedLease,
@@ -432,7 +432,7 @@ const getCar = () => {
                   selectedMileage.amountInclVatMonthly
               ),
             })
-          );
+          );*/
 
           document.location.href = `reservation?id=${car.listingUUID}`;
         });
