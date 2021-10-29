@@ -25,6 +25,7 @@ const getCar = () => {
     if (request.status >= 200 && request.status < 400) {
       let res = JSON.parse(this.response);
       let car = res?.data;
+      console.log(car);
       let leasePrices = leasePlan(car.leasePrices);
 
       const carGrid = document.getElementById("car-grid");
