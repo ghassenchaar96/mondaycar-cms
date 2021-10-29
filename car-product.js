@@ -391,11 +391,11 @@ const getCar = () => {
             redirectUri: `https://mondaycar.com/confirmation`,
           }); 
           */
-       // } 
+        // }
 
         console.log("webauth", webAuth);
 
-       /* const userSelection = {
+        /* const userSelection = {
           car_id: car.listingUUID,
           car_name: `${car.manufacturer} ${car.model}`,
           car_finition: car.edition,
@@ -417,25 +417,26 @@ const getCar = () => {
       });
       */
 
-      // Use this chunck of code in order to collect the lead via zapier workflow
-       signupButton.addEventListener("click", (e) => {
-         console.log("button clicked");
+        // Use this chunck of code in order to collect the lead via zapier workflow
+        signupButton.addEventListener("click", (e) => {
+          console.log("button clicked");
 
-         sessionStorage.setItem(
-           "selection",
-           JSON.stringify({
-             selectedLease,
-             selectedMileage,
-             selectedInsurance,
-             total: printPrice(
-               selectedLease.amountInclVatMonthly +
-                 selectedMileage.amountInclVatMonthly
-             ),
-           })
-         );
+          sessionStorage.setItem(
+            "selection",
+            JSON.stringify({
+              selectedLease,
+              selectedMileage,
+              selectedInsurance,
+              total: printPrice(
+                selectedLease.amountInclVatMonthly +
+                  selectedMileage.amountInclVatMonthly
+              ),
+            })
+          );
 
-         document.location.href = `reservation?id=${car.listingUUID}`;
-       });
+          document.location.href = `reservation?id=${car.listingUUID}`;
+        });
+      });
     } else {
       document.location.href = "voitures";
     }
@@ -473,4 +474,3 @@ const leasePlan = (leasePrices) => {
   };
 };
 */
-
